@@ -9,5 +9,7 @@ namespace ProCursos.API.Models
     {
         public int CategoriaId { get; set; }
         public string CategoriaNome { get; set; }
+
+        public ICollection<Curso> Cursos { get; set; }
     }
 }

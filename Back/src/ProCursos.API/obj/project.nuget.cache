@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8ohzMPUXCqMd8uwsi6547IeEqA4btx+NI31W5ZzPz0m0I+OY+s9OGyUUbXvUJUFR2t7fp+pbuXffgRfhFFoYgw==",
+  "dgSpecHash": "UsgCpC9QGKuG4dqQBQfFT2queEjioZ6Yb2xazWZu6hHTU5CgtIGbnEIRxPc1RDENW4y5tE9qdSeCR7lSywiqSw==",
   "success": true,
   "projectFilePath": "/home/wesley/Área de Trabalho/ProCursos/Back/src/ProCursos.API/ProCursos.API.csproj",
   "expectedPackageFiles": [
@@ -58,6 +58,7 @@
     "/home/wesley/.nuget/packages/microsoft.netcore.platforms/2.0.0/microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "/home/wesley/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
     "/home/wesley/.nuget/packages/microsoft.win32.registry/4.5.0/microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "/home/wesley/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
     "/home/wesley/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.0.4/sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
     "/home/wesley/.nuget/packages/sqlitepclraw.core/2.0.4/sqlitepclraw.core.2.0.4.nupkg.sha512",
     "/home/wesley/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.0.4/sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",

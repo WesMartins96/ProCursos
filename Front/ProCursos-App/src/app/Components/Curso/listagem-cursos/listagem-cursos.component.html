@@ -1,0 +1,40 @@
+<div class="dadosCursos">
+    <table mat-table dataSource="cursos" class="mat-elevation-z8 tabela">
+
+      <ng-container matColumnDef="descricaoCurso">
+        <th mat-header-cell *matHeaderCellDef>Descrição do Curso</th>
+        <td mat-cell *matCellDef="let curso">{{ curso.descricaoCurso }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dtInicio">
+        <th mat-header-cell *matHeaderCellDef>Data de Inicio</th>
+        <td mat-cell *matCellDef="let curso">{{ curso.dtInicio }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dtTermino">
+        <th mat-header-cell *matHeaderCellDef>Data de Termino</th>
+        <td mat-cell *matCellDef="let curso">{{ curso.dtTermino }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="categoria">
+        <th mat-header-cell *matHeaderCellDef>Categorias</th>
+        <td mat-cell *matCellDef="let curso">{{ curso.categoria.categoriaNome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let curso">{{ curso.status }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let curso">
+          <button mat-mini-fab color="primary"><mat-icon>edit</mat-icon></button>
+          <button mat-mini-fab color="warn"><mat-icon>delete_forever</mat-icon></button>
+        </td>
+      </ng-container>
+
+
+
+    </table>
+</div>

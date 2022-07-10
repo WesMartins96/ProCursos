@@ -22,7 +22,7 @@ namespace ProCursos.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Curso>>> GetCursos()
         {
-            return await _contexto.Cursos.ToListAsync();
+            return await _contexto.Cursos.Include(curso => curso.Categoria).ToListAsync();
         }
 
         [HttpGet("{id}")]

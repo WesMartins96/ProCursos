@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -31,10 +32,20 @@ namespace ProCursos.API
             services.AddDbContext<Contexto>(
                 opcoes => opcoes.UseSqlite(Configuration.GetConnectionString("ConexaoBD")));
 
-            services.AddControllers();
+            //Fazer a ligação front -> back da aplicação
+            services.AddCors();
+
+
+            services.AddControllers().AddJsonOptions(opcoes => 
+                { opcoes.JsonSerializerOptions.IgnoreNullValues = true;});
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProCursos.API", Version = "v1" });
+            });
+
+             services.AddSpaStaticFiles(diretorio => {
+                diretorio.RootPath = "Front/ProCursos-App";
             });
         }
 
@@ -52,11 +63,27 @@ namespace ProCursos.API
 
             app.UseRouting();
 
+              //Configurar o CORS
+            app.UseCors(opcoes => {
+                opcoes.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+            });
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            //Configurar a SPA
+            app.UseSpa( spa => {
+                spa.Options.SourcePath = Path.Combine(Directory.GetCurrentDirectory(), "Front/ProCursos-App");
+
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer($"http://localhost:4200/");
+                }
             });
         }
     }

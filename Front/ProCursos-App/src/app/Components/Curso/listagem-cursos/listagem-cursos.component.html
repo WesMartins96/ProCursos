@@ -1,5 +1,5 @@
 <div class="dadosCursos">
-    <table mat-table dataSource="cursos" class="mat-elevation-z8 tabela">
+    <table mat-table [dataSource]="cursos" class="mat-elevation-z8 tabela">
 
       <ng-container matColumnDef="descricaoCurso">
         <th mat-header-cell *matHeaderCellDef>Descrição do Curso</th>
@@ -34,7 +34,8 @@
         </td>
       </ng-container>
 
-
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
     </table>
 </div>

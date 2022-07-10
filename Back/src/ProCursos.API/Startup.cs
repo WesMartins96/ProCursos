@@ -36,8 +36,12 @@ namespace ProCursos.API
             services.AddCors();
 
 
+                                  //Usando a biblioteca de validações    //Ignorar valores nulos e Ignorar referencias circulares
             services.AddControllers().AddJsonOptions(opcoes => 
-                { opcoes.JsonSerializerOptions.IgnoreNullValues = true;});
+            { opcoes.JsonSerializerOptions.IgnoreNullValues = true;})
+            .AddNewtonsoftJson(opcoes => {
+                opcoes.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -69,6 +73,10 @@ namespace ProCursos.API
             });
 
             app.UseAuthorization();
+
+            app.UseStaticFiles();
+
+            app.UseSpaStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

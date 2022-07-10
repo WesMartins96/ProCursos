@@ -10,7 +10,7 @@ import { CursosService } from 'src/app/Services/cursos.service';
 export class ListagemCursosComponent implements OnInit {
 
   cursos = new MatTableDataSource<any>();
-  exibirColunas: string[];
+  displayedColumns: string[];
 
   constructor(private cursosService: CursosService) { }
 
@@ -19,7 +19,7 @@ export class ListagemCursosComponent implements OnInit {
       this.cursos.data = res;
     });
 
-    this.exibirColunas = this.ExibirColunas();
+    this.displayedColumns = this.ExibirColunas();
   }
 
   ExibirColunas(): string[]{

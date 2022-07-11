@@ -29,7 +29,7 @@ export class NovoCursoComponent implements OnInit {
       descricaoCurso: new FormControl(null, [Validators.required]),
       dtInicio: new FormControl(null, [Validators.required]),
       dtTermino: new FormControl(null, [Validators.required]),
-      qtdAlunos: new FormControl(null),
+      qtdAlunos: new FormControl(0),
       categoriaId: new FormControl(null, [Validators.required]),
     });
   }

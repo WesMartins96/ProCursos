@@ -1,10 +1,10 @@
 <div class="divCard">
   <mat-card>
     <mat-card-header>
-      <mat-card-title><h3>Cadastrar Curso</h3></mat-card-title>
+      <mat-card-title><h3>Atualizar o Curso {{ nomeCurso }}</h3></mat-card-title>
     </mat-card-header>
 
-    <form [formGroup]="formulario" (ngSubmit)="EnviarFormulario()">
+    <form [formGroup]="formulario" *ngIf="this.formulario" (ngSubmit)="EnviarFormulario()">
 
       <mat-card-content>
         <div>
@@ -57,7 +57,7 @@
 
       <mat-divider></mat-divider>
         <div>
-          <button type="submit" mat-stroked-button color="primary">Salvar</button>
+          <button type="submit" mat-stroked-button color="primary">Atualizar</button>
           <button mat-stroked-button type="button" (click)="VoltarListagem()">Voltar</button>
         </div>
       <mat-card-actions></mat-card-actions>

@@ -23,7 +23,7 @@ export class ListagemCursosComponent implements OnInit {
   }
 
   ExibirColunas(): string[]{
-    return ['descricaoCurso', 'dtInicio', 'dtTermino', 'categoria' ,'status', 'acoes']
+    return ['descricaoCurso', 'dtInicio', 'dtTermino', 'qtdAlunos', 'categoria', 'acoes']
   }
 
 }

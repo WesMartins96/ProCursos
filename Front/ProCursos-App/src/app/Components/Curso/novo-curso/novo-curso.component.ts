@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from 'src/app/Models/Categoria';
 import { CategoriasService } from 'src/app/Services/categorias.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CursosService } from 'src/app/Services/cursos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-novo-curso',
@@ -14,7 +16,9 @@ export class NovoCursoComponent implements OnInit {
 
   categorias: Categoria[];
 
-  constructor(private categoriasServices: CategoriasService) { }
+  constructor(private categoriasServices: CategoriasService,
+    private cursosServices: CursosService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.categoriasServices.PegarTodos().subscribe(res => {
@@ -22,17 +26,29 @@ export class NovoCursoComponent implements OnInit {
     });
 
     this.formulario = new FormGroup({
-      descricaoNome: new FormControl(null),
-      dtInicio: new FormControl(null),
-      dtTermino: new FormControl(null),
-      categoriaId: new FormControl(null),
-      status: new FormControl(null),
+      descricaoCurso: new FormControl(null, [Validators.required]),
+      dtInicio: new FormControl(null, [Validators.required]),
+      dtTermino: new FormControl(null, [Validators.required]),
+      qtdAlunos: new FormControl(null),
+      categoriaId: new FormControl(null, [Validators.required]),
     });
   }
 
   //função pra ajudar a pegar o formulario
   get propriedade(){
     return this.formulario.controls;
+  }
+
+  EnviarFormulario(): void {
+    const curso = this.formulario.value;
+
+    this.cursosServices.NovoCurso(curso).subscribe(res => {
+      this.router.navigate(['cursos/listagemcursos']);
+    })
+  }
+
+  VoltarListagem(): void{
+    this.router.navigate(['cursos/listagemcursos'])
   }
 
 }

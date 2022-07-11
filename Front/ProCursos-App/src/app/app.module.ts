@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 // Angular Material
@@ -13,6 +13,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSelectModule} from '@angular/material/select';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,13 +25,15 @@ import { CursosService } from './Services/cursos.service';
 import { ListagemCursosComponent } from './Components/Curso/listagem-cursos/listagem-cursos.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NovoCursoComponent } from './Components/Curso/novo-curso/novo-curso.component';
+import { AtualizarCursoComponent } from './Components/Curso/atualizar-curso/atualizar-curso.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ListagemCursosComponent,
-    NovoCursoComponent
+    NovoCursoComponent,
+    AtualizarCursoComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,9 @@ import { NovoCursoComponent } from './Components/Curso/novo-curso/novo-curso.com
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatGridListModule,
+    FormsModule,
 
   ],
 

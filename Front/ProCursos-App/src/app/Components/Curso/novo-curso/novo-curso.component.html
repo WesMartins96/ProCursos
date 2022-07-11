@@ -1,0 +1,52 @@
+<div class="divCard">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title><h3>Cadastrar Curso</h3></mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="formulario">
+
+      <mat-card-content>
+        <div>
+          <mat-form-field>
+            <mat-label>Descrição do Curso</mat-label>
+            <input type="text" matInput formControlName="descricaoCurso" placeholder="Digite a descrição do curso">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Data de Inicio</mat-label>
+            <input type="date" matInput formControlName="dtInicio" placeholder="Digite a data de inicio do curso">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Data de Termino</mat-label>
+            <input type="date" matInput formControlName="dtTermino" placeholder="Digite a data de termino do curso">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Selecione a Categoria do Curso</mat-label>
+            <mat-select formControlName="categoriaId">
+              <mat-option *ngFor="let categoria of categorias" [value]="categoria.categoriaId">
+                {{ categoria.categoriaNome }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+        <div>
+          <button type="submit" mat-stroked-button color="primary">Salvar</button>
+          <button mat-stroked-button>Voltar</button>
+        </div>
+      <mat-card-actions></mat-card-actions>
+
+    </form>
+  </mat-card>
+</div>

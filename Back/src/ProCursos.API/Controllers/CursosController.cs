@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProCursos.API.Interfaces;
 using ProCursos.API.Models;
 
 namespace ProCursos.API.Controllers
@@ -12,23 +13,23 @@ namespace ProCursos.API.Controllers
     [ApiController]
     public class CursosController : Controller
     {
-        private readonly Contexto _contexto;
+        private readonly ICursoRepositorio _cursoRepositorio;
 
-        public CursosController(Contexto contexto)
+        public CursosController(ICursoRepositorio cursoRepositorio)
         {
-            _contexto = contexto;
+            _cursoRepositorio = cursoRepositorio;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Curso>>> GetCursos()
         {
-            return await _contexto.Cursos.Include(curso => curso.Categoria).ToListAsync();
+            return await _cursoRepositorio.PegarTodos().ToListAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Curso>> GetCurso(int id)
         {
-            var curso = await _contexto.Cursos.FindAsync(id);
+            var curso = await _cursoRepositorio.PegarPeloId(id);
 
             if (curso == null)
             {
@@ -46,54 +47,49 @@ namespace ProCursos.API.Controllers
                 return BadRequest();
             }
 
-            _contexto.Entry(curso).State = EntityState.Modified;
+            if (ModelState.IsValid)
+            {
+                await _cursoRepositorio.Atualizar(curso);
 
-            try
-            {
-                await _contexto.SaveChangesAsync();
+                return Ok(new {
+                    mensagem = $"Curso {curso.DescricaoCurso} atualizado com Sucesso!"
+                });
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CursoExist(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
+
+            return BadRequest(ModelState);
         }
 
         // inserir registro
         [HttpPost]
         public async Task<ActionResult<Curso>> PostCurso(Curso curso)
         {
-            _contexto.Cursos.Add(curso);
-            await _contexto.SaveChangesAsync();
+            if (ModelState.IsValid)
+            {
+                await _cursoRepositorio.Inserir(curso);
 
-            return CreatedAtAction("GetCurso", new { id = curso.CursoId }, curso);
-        }
+                 return Ok(new {
+                    mensagem = $"Curso {curso.DescricaoCurso} cadastrada com Sucesso!"
+                });
+            }
+
+            return BadRequest(ModelState);
+        }    
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Curso>> DeleteCurso(int id)
         {
-            var curso = await _contexto.Cursos.FindAsync(id);
+            var curso = await _cursoRepositorio.PegarPeloId(id);
             if (curso == null)
             {
                 return NotFound();
             }
 
-            _contexto.Cursos.Remove(curso);
-            await _contexto.SaveChangesAsync();
+            await _cursoRepositorio.Excluir(id);
 
-            return curso;
+             return Ok(new {
+                    mensagem = $"Curso {curso.DescricaoCurso} Excluido com Sucesso!"
+                });
         }
 
-        private bool CursoExist(int id)
-        {
-            return _contexto.Cursos.Any(exist => exist.CursoId == id);
-        }
     }
 }

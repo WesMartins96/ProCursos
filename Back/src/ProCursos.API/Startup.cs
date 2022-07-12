@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ProCursos.API.Interfaces;
+using ProCursos.API.Repositorios;
 
 namespace ProCursos.API
 {
@@ -31,6 +33,10 @@ namespace ProCursos.API
 
             services.AddDbContext<Contexto>(
                 opcoes => opcoes.UseSqlite(Configuration.GetConnectionString("ConexaoBD")));
+
+            //Registros de Repositorios e Interfaces    
+            services.AddScoped<ICursoRepositorio, CursoRepositorio>();
+            services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 
             //Fazer a ligação front -> back da aplicação
             services.AddCors();

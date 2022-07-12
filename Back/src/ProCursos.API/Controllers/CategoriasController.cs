@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ProCursos.API.Interfaces;
 using ProCursos.API.Models;
 
 namespace ProCursos.API.Controllers
@@ -12,17 +13,17 @@ namespace ProCursos.API.Controllers
     [ApiController]
     public class CategoriasController : Controller
     {
-        private readonly Contexto _contexto;
+        private readonly ICategoriaRepositorio _categoriaRepositorio;
 
-        public CategoriasController(Contexto contexto)
+        public CategoriasController(ICategoriaRepositorio categoriaRepositorio)
         {
-            _contexto = contexto;
+            _categoriaRepositorio = categoriaRepositorio;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
         {
-            return await _contexto.Categorias.ToListAsync();
+            return await _categoriaRepositorio.PegarTodos().ToListAsync();
         }
 
        

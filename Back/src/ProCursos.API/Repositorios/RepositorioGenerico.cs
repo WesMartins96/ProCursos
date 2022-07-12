@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProCursos.API.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using ProCursos.API.Models;
 
 namespace ProCursos.API.Repositorios
 {

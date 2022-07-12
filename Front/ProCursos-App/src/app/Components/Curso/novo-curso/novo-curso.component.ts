@@ -4,6 +4,7 @@ import { CategoriasService } from 'src/app/Services/categorias.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CursosService } from 'src/app/Services/cursos.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-novo-curso',
@@ -18,7 +19,8 @@ export class NovoCursoComponent implements OnInit {
 
   constructor(private categoriasServices: CategoriasService,
     private cursosServices: CursosService,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.categoriasServices.PegarTodos().subscribe(res => {
@@ -44,6 +46,11 @@ export class NovoCursoComponent implements OnInit {
 
     this.cursosServices.NovoCurso(curso).subscribe(res => {
       this.router.navigate(['cursos/listagemcursos']);
+      this.snackBar.open(res.mensagem, null, {
+        duration: 4000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
     })
   }
 

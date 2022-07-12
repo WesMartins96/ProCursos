@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Categoria } from 'src/app/Models/Categoria';
@@ -23,7 +24,8 @@ export class AtualizarCursoComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private categoriasService: CategoriasService,
-    private cursosService: CursosService) { }
+    private cursosService: CursosService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.cursoId = this.route.snapshot.params.id;
@@ -53,6 +55,11 @@ export class AtualizarCursoComponent implements OnInit {
 
     this.cursosService.AtualizarCurso(this.cursoId, curso).subscribe(res => {
       this.router.navigate(['cursos/listagemcursos']);
+      this.snackBar.open(res.mensagem, null, {
+        duration: 4000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
     });
   }
 

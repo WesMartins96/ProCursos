@@ -17,6 +17,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -65,7 +67,9 @@ import { HomeComponent } from './Components/Home/home/home.component';
     MatDialogModule,
     MatSidenavModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatAutocompleteModule,
+    MatSnackBarModule
   ],
 
   providers: [

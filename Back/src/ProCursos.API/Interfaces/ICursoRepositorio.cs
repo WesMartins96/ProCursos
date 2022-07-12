@@ -12,5 +12,9 @@ namespace ProCursos.API.Interfaces
         new IQueryable<Curso> PegarTodos();
 
         new Task<Curso> PegarPeloId(int id);
+
+        IQueryable<Curso> FiltrarCurso(string nomeCurso);
+
+
     }
 }

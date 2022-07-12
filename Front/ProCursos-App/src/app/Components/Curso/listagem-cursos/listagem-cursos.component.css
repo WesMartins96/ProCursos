@@ -17,4 +17,13 @@
   left: 5px;
 }
 
+.divAutoComplete{
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.autoCompleteInput{
+  width: 500px;
+}
+
 

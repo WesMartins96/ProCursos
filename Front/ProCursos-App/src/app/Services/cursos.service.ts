@@ -40,4 +40,9 @@ export class CursosService {
     const apiUrl = `${this.url}/${cursoId}`;
     return this.http.delete<number>(apiUrl, httpOptions);
   }
+
+  FiltrarCursos(nomeCurso: string) : Observable<Curso[]>{
+    const apiUrl = `${this.url}/FiltrarCursos/${nomeCurso}`;
+    return this.http.get<Curso[]>(apiUrl);
+  }
 }

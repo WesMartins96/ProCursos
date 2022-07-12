@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <mat-list style="cursor: pointer">
+      <mat-list-item routerLink="/home/home">
+        <mat-icon style="padding: 5px;">home</mat-icon>
+        Home
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item routerLink="/cursos/listagemcursos">
+        <mat-icon style="padding: 5px;">border_color</mat-icon>
+        Curso
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

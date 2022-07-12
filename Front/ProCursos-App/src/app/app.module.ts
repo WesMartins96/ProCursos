@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,8 +14,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
-
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,6 +30,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NovoCursoComponent } from './Components/Curso/novo-curso/novo-curso.component';
 import { AtualizarCursoComponent } from './Components/Curso/atualizar-curso/atualizar-curso.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DashboardComponent } from './Components/Dashboard/dashboard/dashboard.component';
+import { HeaderComponent } from './Components/Dashboard/header/header.component';
+import { HomeComponent } from './Components/Home/home/home.component';
 
 
 @NgModule({
@@ -37,7 +41,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     ListagemCursosComponent,
     NovoCursoComponent,
     AtualizarCursoComponent,
-    DialogExclusaoCursosComponent
+    DialogExclusaoCursosComponent,
+    DashboardComponent,
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +63,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatGridListModule,
     FormsModule,
     MatDialogModule,
+    MatSidenavModule,
+    MatListModule,
+    MatToolbarModule
   ],
 
   providers: [

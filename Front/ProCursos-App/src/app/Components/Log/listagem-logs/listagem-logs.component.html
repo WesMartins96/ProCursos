@@ -1,0 +1,36 @@
+<div class="dadosCursos">
+
+  <div class="cabecalho">
+    <mat-grid-list cols="2" rowHeight="50px">
+      <mat-grid-tile>
+        <h2 class="titulo">Registro de Logs</h2>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+  </div>
+
+
+    <table mat-table [dataSource]="logs" class="mat-elevation-z8 tabela">
+
+      <ng-container matColumnDef="curso">
+        <th mat-header-cell *matHeaderCellDef>Curso</th>
+        <td mat-cell *matCellDef="let log">{{ log.curso }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dtInclusao">
+        <th mat-header-cell *matHeaderCellDef>Data de Inclusão</th>
+        <td mat-cell *matCellDef="let log">{{ log.dtInclusao | date: 'dd/MM/yy' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dtAtualizacao">
+        <th mat-header-cell *matHeaderCellDef>Data da Atualização</th>
+        <td mat-cell *matCellDef="let log">{{ log.dtAtualizacao | date: 'dd/MM/yy' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="usuario">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+        <td mat-cell *matCellDef="let log">{{ log.usuario }}</td>
+      </ng-container>
+
+    </table>
+</div>

@@ -35,6 +35,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DashboardComponent } from './Components/Dashboard/dashboard/dashboard.component';
 import { HeaderComponent } from './Components/Dashboard/header/header.component';
 import { HomeComponent } from './Components/Home/home/home.component';
+import { ListagemLogsComponent } from './Components/Log/listagem-logs/listagem-logs.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { HomeComponent } from './Components/Home/home/home.component';
     DialogExclusaoCursosComponent,
     DashboardComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    ListagemLogsComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { ListagemCursosComponent } from './Components/Curso/listagem-cursos/list
 import { NovoCursoComponent } from './Components/Curso/novo-curso/novo-curso.component';
 import { DashboardComponent } from './Components/Dashboard/dashboard/dashboard.component';
 import { HomeComponent } from './Components/Home/home/home.component';
+import { ListagemLogsComponent } from './Components/Log/listagem-logs/listagem-logs.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,9 @@ const routes: Routes = [
       },
       {
         path: 'home/home', component: HomeComponent
+      },
+      {
+        path: 'logs/listagemlogs', component: ListagemLogsComponent
       }
     ]
   },

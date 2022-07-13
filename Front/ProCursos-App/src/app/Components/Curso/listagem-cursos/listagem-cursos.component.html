@@ -13,15 +13,16 @@
   </div>
 
   <div class="divAutoComplete">
-    <form>
+    <form [formGroup]="buscaForm">
       <mat-form-field class="autoCompleteInput">
         <input type="text" placeholder="Digite o nome do curso" matInput [formControl]="autoCompleteInput" [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option *ngFor="let curso of nomesCursos | async" [value]="curso"> {{ curso }}</mat-option>
         </mat-autocomplete>
       </mat-form-field>
-        <input style="margin: 20px;" type="date">
-        <input type="date">
+        <input style="margin: 20px;" type="date" ngModel="dtInicio" formControlName="dtInicio">
+        <input type="date" ngModel="dtTermino" formControlName="dtTermino">
+        <button mat-mini-fab color="primary">Filtrar</button>
     </form>
   </div>
 

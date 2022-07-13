@@ -20,10 +20,11 @@ export class ListagemCursosComponent implements OnInit {
   autoCompleteInput = new FormControl();
   cursosFiltradosDescricao: Curso[];
   opcoesCursos: string[] = [];
-  dataInicialFiltro: Date;
-  dataFinalFiltro: Date;
+  dtInicial: Date;
+  dtFinal: Date;
   nomesCursos: Observable<string[]>;
-  buscaForm: FormGroup;
+  formBuilder: any;
+  buscaForm: FormGroup
 
   constructor(private cursosService: CursosService,
     private dialog: MatDialog,
@@ -36,6 +37,11 @@ export class ListagemCursosComponent implements OnInit {
       });
 
       this.cursos.data = res;
+
+      this.buscaForm = this.formBuilder.group({
+        dtInicial : [],
+        dtFinal : []
+      })
     });
 
     this.displayedColumns = this.ExibirColunas();
@@ -72,17 +78,17 @@ export class ListagemCursosComponent implements OnInit {
   }
 
   filtroData(){
-    if(this.dataInicialFiltro > this.dataFinalFiltro && this.dataFinalFiltro ){
+    if(this.dtInicial > this.dtFinal && this.dtFinal ){
       this.snackBar.open('Data final não pode ser menor que a data inicial');
-    } else if(!this.dataInicialFiltro && !this.dataFinalFiltro){
+    } else if(!this.dtInicial && !this.dtFinal){
       this.CarregarCursosAtivos();
     }
-    else if (this.dataInicialFiltro && !this.dataFinalFiltro){
-      this.filtrarCursoDataInicial(this.dataInicialFiltro);
-    }else if (!this.dataInicialFiltro && this.dataFinalFiltro){
-      this.filtrarCursoDataFinal(this.dataFinalFiltro);
+    else if (this.dtInicial && !this.dtFinal){
+      this.filtrarCursoDataInicial(this.dtInicial);
+    }else if (!this.dtInicial && this.dtFinal){
+      this.filtrarCursoDataFinal(this.dtFinal);
     }else {
-      this.filtrarCursoDataInicialFinal(this.dataInicialFiltro, this.dataFinalFiltro)
+      this.filtrarCursoDataInicialFinal(this.dtInicial, this.dtFinal)
     }
   }
 
@@ -106,11 +112,6 @@ export class ListagemCursosComponent implements OnInit {
     this.cursosFiltradosDescricao = this.cursosAtivos.filter(result =>{
       return (result.dtInicio >= dataInicial || result.dtTermino >= dataInicial) && (result.dtInicio <= dataFinal || result.dtTermino <= dataFinal)
     })
-  }
-
-  LimparFiltro(){
-    this.buscaForm.reset();
-    this.CarregarCursosAtivos();
   }
 
 

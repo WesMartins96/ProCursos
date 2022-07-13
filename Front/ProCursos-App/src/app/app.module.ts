@@ -23,6 +23,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ToastrModule } from 'ngx-toastr';
 
 import { CategoriasService } from './Services/categorias.service';
 import { CursosService } from './Services/cursos.service';
@@ -71,7 +72,7 @@ import { ListagemLogsComponent } from './Components/Log/listagem-logs/listagem-l
     MatListModule,
     MatToolbarModule,
     MatAutocompleteModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
 
   providers: [

@@ -31,8 +31,8 @@ export class CursosService {
     return this.http.post<Curso>(this.url, curso, httpOptions);
   }
 
-  AtualizarCurso(curso: Curso): Observable<any>{
-    const apiUrl = `${this.url}/${curso.cursoId}`;
+  AtualizarCurso(cursoId: number,curso: Curso): Observable<any>{
+    const apiUrl = `${this.url}/${cursoId}`;
     return this.http.put<Curso>(apiUrl, curso, httpOptions);
   }
 

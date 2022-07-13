@@ -4,7 +4,6 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { CursosService } from 'src/app/Services/cursos.service';
-import { startWith, map} from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -34,7 +33,7 @@ export class ListagemCursosComponent implements OnInit {
 
     this.displayedColumns = this.ExibirColunas();
 
-    this.nomesCursos = this.autoCompleteInput.valueChanges.pipe(startWith(''), map(curso => this.FiltrarCursos(curso)));
+
   }
 
   ExibirColunas(): string[]{
@@ -59,24 +58,6 @@ export class ListagemCursosComponent implements OnInit {
     });
   }
 
-  FiltrarCursos(curso: string): string[]{
-    if (curso.trim().length >= 4) {
-      this.cursosService.FiltrarCursos(curso.toLowerCase()).subscribe((res) => {
-        this.cursos.data = res;
-      });
-    }
-    else{
-      if (curso === '') {
-        this.cursosService.PegarTodos().subscribe((res) => {
-          this.cursos.data = res;
-        });
-      }
-    }
-
-    return this.opcoesCursos.filter((curso) =>
-      curso.toLowerCase().includes(curso.toLowerCase())
-    );
-  }
 
 }
 

@@ -19,20 +19,20 @@ export class CursosService {
   constructor(private http:HttpClient) { }
 
   PegarTodos(): Observable<Curso[]>{
-    return this.http.get<Curso[]>(this.url);
+    return this.http.get<Curso[]>(this.url, httpOptions);
   }
 
   PegarCursoPeloId(cursoId: number) : Observable<Curso>{
     const apiUrl = `${this.url}/${cursoId}`;
-    return this.http.get<Curso>(apiUrl);
+    return this.http.get<Curso>(apiUrl, httpOptions);
   }
 
   NovoCurso(curso: Curso): Observable<any>{
     return this.http.post<Curso>(this.url, curso, httpOptions);
   }
 
-  AtualizarCurso(cursoId: number, curso: Curso): Observable<any>{
-    const apiUrl = `${this.url}/${cursoId}`;
+  AtualizarCurso(curso: Curso): Observable<any>{
+    const apiUrl = `${this.url}/${curso.cursoId}`;
     return this.http.put<Curso>(apiUrl, curso, httpOptions);
   }
 
@@ -41,8 +41,9 @@ export class CursosService {
     return this.http.delete<number>(apiUrl, httpOptions);
   }
 
-  FiltrarCursos(nomeCurso: string) : Observable<Curso[]>{
-    const apiUrl = `${this.url}/FiltrarCursos/${nomeCurso}`;
-    return this.http.get<Curso[]>(apiUrl);
+  PegarCursando() : Observable<Curso[]>{
+    const apiUrl = `${this.url}/Cursando`;
+    return this.http.get<Curso[]>(apiUrl, httpOptions);
   }
+
 }

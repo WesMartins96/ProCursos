@@ -41,6 +41,13 @@ namespace ProCursos.API.Controllers
             return curso;
         }
 
+        [HttpGet("Cursando/")]
+        public async Task<ActionResult<IEnumerable<Curso>>> GetCursosAtivos()
+        {
+            var entity = await _cursoRepositorio.PegarCursosAtivos();
+            return Ok(entity);
+        }
+
         // atualizar registros
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCurso(int id, Curso curso)

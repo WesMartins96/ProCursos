@@ -20,9 +20,11 @@
           <mat-option *ngFor="let curso of nomesCursos | async" [value]="curso"> {{ curso }}</mat-option>
         </mat-autocomplete>
       </mat-form-field>
+        <input style="margin: 20px;" type="date">
+        <input type="date">
     </form>
   </div>
-  
+
     <table mat-table [dataSource]="cursos" class="mat-elevation-z8 tabela">
 
       <ng-container matColumnDef="descricaoCurso">

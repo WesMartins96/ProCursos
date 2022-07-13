@@ -23,9 +23,9 @@ namespace ProCursos.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
         {
-            return await _categoriaRepositorio.PegarTodos().ToListAsync();
-        }
-
-       
+            var categoria = await _categoriaRepositorio.PegarTodos();
+            return Ok(categoria);
+           
+        }     
     }
 }

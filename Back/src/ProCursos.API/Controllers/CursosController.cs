@@ -14,16 +14,19 @@ namespace ProCursos.API.Controllers
     public class CursosController : Controller
     {
         private readonly ICursoRepositorio _cursoRepositorio;
+        private readonly ILogRepositorio _logRepositorio;
 
-        public CursosController(ICursoRepositorio cursoRepositorio)
+        public CursosController(ICursoRepositorio cursoRepositorio, ILogRepositorio logRepositorio)
         {
             _cursoRepositorio = cursoRepositorio;
+            _logRepositorio = logRepositorio;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Curso>>> GetCursos()
         {
-            return await _cursoRepositorio.PegarTodos().ToListAsync();
+            var entity = await _cursoRepositorio.PegarTodos();
+            return Ok(entity);
         }
 
         [HttpGet("{id}")]
@@ -65,12 +68,20 @@ namespace ProCursos.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _cursoRepositorio.Inserir(curso);
+                await _cursoRepositorio.Criar(curso);
 
                  return Ok(new {
                     mensagem = $"Curso {curso.DescricaoCurso} cadastrada com Sucesso!"
                 });
             }
+
+            //criar log
+            var log = new Log()
+            {
+                CursoId = curso.CursoId,
+                DtInclusao = DateTime.Now,
+                Usuario = "Admin"              
+            };
 
             return BadRequest(ModelState);
         }    
@@ -79,10 +90,15 @@ namespace ProCursos.API.Controllers
         public async Task<ActionResult<Curso>> DeleteCurso(int id)
         {
             var curso = await _cursoRepositorio.PegarPeloId(id);
+            if (curso.DtTermino.Date < DateTime.Now.Date)
+            {
+                return BadRequest("Não pode ser feita a exclusão de um curso já finalizado");
+            }
             if (curso == null)
             {
                 return NotFound();
-            }
+            }else
+ 
 
             await _cursoRepositorio.Excluir(id);
 
@@ -91,11 +107,8 @@ namespace ProCursos.API.Controllers
                 });
         }
 
-        [HttpGet("FiltrarCursos/{nomeCurso}")]
-        public async Task<ActionResult<IEnumerable<Curso>>> FiltrarCursos(string nomeCurso)
-        {
-            return await _cursoRepositorio.FiltrarCurso(nomeCurso).ToListAsync();
-        }
+
+
 
     }
 }

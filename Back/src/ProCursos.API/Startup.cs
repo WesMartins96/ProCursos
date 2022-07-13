@@ -37,6 +37,7 @@ namespace ProCursos.API
             //Registros de Repositorios e Interfaces    
             services.AddScoped<ICursoRepositorio, CursoRepositorio>();
             services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+            services.AddScoped<ILogRepositorio, LogRepositorio>();
 
             //Fazer a ligação front -> back da aplicação
             services.AddCors();

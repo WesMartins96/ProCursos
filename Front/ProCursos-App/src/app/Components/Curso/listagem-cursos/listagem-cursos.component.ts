@@ -33,7 +33,8 @@ export class ListagemCursosComponent implements OnInit {
     });
 
     this.displayedColumns = this.ExibirColunas();
-    this.nomesCursos = this.autoCompleteInput.valueChanges.pipe(startWith(''), map(descricaoCurso => this.FiltrarCursos(descricaoCurso)));
+
+    this.nomesCursos = this.autoCompleteInput.valueChanges.pipe(startWith(''), map(curso => this.FiltrarCursos(curso)));
   }
 
   ExibirColunas(): string[]{
@@ -58,22 +59,22 @@ export class ListagemCursosComponent implements OnInit {
     });
   }
 
-  FiltrarCursos(descricaoCurso: string): string[]{
-    if (descricaoCurso.trim().length >= 4) {
-      this.cursosService.FiltrarCursos(descricaoCurso.toLowerCase()).subscribe(res => {
+  FiltrarCursos(curso: string): string[]{
+    if (curso.trim().length >= 4) {
+      this.cursosService.FiltrarCursos(curso.toLowerCase()).subscribe((res) => {
         this.cursos.data = res;
       });
     }
     else{
-      if (descricaoCurso === '') {
-        this.cursosService.PegarTodos().subscribe(res => {
+      if (curso === '') {
+        this.cursosService.PegarTodos().subscribe((res) => {
           this.cursos.data = res;
         });
       }
     }
 
-    return this.opcoesCursos.filter(curso =>
-      curso.toLowerCase().includes(descricaoCurso.toLowerCase())
+    return this.opcoesCursos.filter((curso) =>
+      curso.toLowerCase().includes(curso.toLowerCase())
     );
   }
 
@@ -89,6 +90,8 @@ export class DialogExclusaoCursosComponent{
   private snackBar: MatSnackBar){ }
 
   ExcluirCurso(cursoId): void{
+
+
     this.cursosServices.ExcluirCurso(cursoId).subscribe(res => {
        this.snackBar.open(res.mensagem, null, {
         duration: 4000,

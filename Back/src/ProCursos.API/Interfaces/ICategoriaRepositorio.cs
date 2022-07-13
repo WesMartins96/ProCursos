@@ -6,8 +6,8 @@ using ProCursos.API.Models;
 
 namespace ProCursos.API.Interfaces
 {
-    public interface ICategoriaRepositorio : IRepositorioGenerico<Categoria>
+    public interface ICategoriaRepositorio
     {
-        
+        Task<IEnumerable<Categoria>> PegarTodos();
     }
 }

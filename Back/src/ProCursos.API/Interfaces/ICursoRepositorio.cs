@@ -6,14 +6,23 @@ using ProCursos.API.Models;
 
 namespace ProCursos.API.Interfaces
 {
-    public interface ICursoRepositorio : IRepositorioGenerico<Curso>
+    public interface ICursoRepositorio 
     {
-        // aqui vai sobescrever o IrepositorioGenerico
-        new IQueryable<Curso> PegarTodos();
+       Task<Curso> PegarPeloId(int cursoId);
+       Task<Curso> Criar(Curso curso);
+       Task<Curso> Atualizar(Curso curso);
+       Task<bool> Excluir(int cursoId); 
 
-        new Task<Curso> PegarPeloId(int id);
 
-        IQueryable<Curso> FiltrarCurso(string nomeCurso);
+       Task<IEnumerable<Curso>> PegarTodos();
+       Task<IEnumerable<Curso>> PegarCursosAtivos();
+
+       Task<bool> PegarCursoPeloPeriodo(Curso curso);
+       Task<bool> PegarCursoJaRegistrado(Curso curso);
+       
+       
+
+
 
 
     }

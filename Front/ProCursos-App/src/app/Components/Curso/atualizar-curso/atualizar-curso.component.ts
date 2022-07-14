@@ -60,6 +60,14 @@ export class AtualizarCursoComponent implements OnInit {
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
+    },
+    (err) => {
+      this.snackBar.open(err.mensagem , ("Não é possivel Atualizar cursos na data informada"), {
+        duration: 4000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      })
+      console.log(err);
     });
   }
 

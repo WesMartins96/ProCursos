@@ -56,6 +56,11 @@ export class NovoCursoComponent implements OnInit {
       });
     },
     (err) => {
+      this.snackBar.open(err.mensagem , ("Não é possivel inserir cursos na data informada"), {
+        duration: 4000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      })
       console.log(err);
     });
   }

@@ -22,12 +22,15 @@ export class ListagemCursosComponent implements OnInit {
   opcoesCursos: string[] = [];
   nomesCursos: Observable<string[]>;
 
+  erros: string[];
+
 
   constructor(private cursosService: CursosService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.erros = [];
     this.cursosService.PegarTodos().subscribe(res => {
       res.forEach(c => {
         this.opcoesCursos.push(c.descricaoCurso);
@@ -86,7 +89,7 @@ export class ListagemCursosComponent implements OnInit {
   }
 
   FiltrarPelaData(): void{
-    
+
   }
 
 
@@ -104,13 +107,19 @@ export class DialogExclusaoCursosComponent{
 
   ExcluirCurso(cursoId): void{
 
-
     this.cursosServices.ExcluirCurso(cursoId).subscribe(res => {
        this.snackBar.open(res.mensagem, null, {
         duration: 4000,
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
-    });
+    },
+    (err => {
+      this.snackBar.open(err.mensagem , ("Não é possivel deletar cursos finalizados"), {
+        duration: 4000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      })
+    }));
   }
 }

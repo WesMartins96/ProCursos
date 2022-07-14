@@ -67,7 +67,7 @@ namespace ProCursos.API.Controllers
         public async Task<ActionResult<Curso>> PostCurso(Curso curso)
         {
 
-            if (curso.DtInicio.Date <= DateTime.Now.Date || curso.DtInicio.Date >= curso.DtTermino.Date
+            if (curso.DtInicio.Date <= DateTime.Now.Date || curso.DtInicio.Date > curso.DtTermino.Date
             || curso.DtInicio.Date == curso.DtTermino.Date)
             {
                return BadRequest($"Não é possivel cadastrar cursos na data informada");
@@ -76,9 +76,9 @@ namespace ProCursos.API.Controllers
 
             await _cursoRepositorio.Criar(curso);
 
-                 return Ok(new {
-                    mensagem = $"Curso {curso.DescricaoCurso} cadastrada com Sucesso!"
-                    });
+                return Ok(new {
+                     mensagem = $"Curso {curso.DescricaoCurso} cadastrada com Sucesso!"
+                });
     
         }    
 

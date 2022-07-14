@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { CursosService } from 'src/app/Services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Curso } from 'src/app/Models/Curso';
+import { startWith, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-listagem-cursos',
@@ -14,17 +14,14 @@ import { Curso } from 'src/app/Models/Curso';
 })
 export class ListagemCursosComponent implements OnInit {
 
-  cursosAtivos: Curso[];
+
   cursos = new MatTableDataSource<any>();
   displayedColumns: string[];
   autoCompleteInput = new FormControl();
-  cursosFiltradosDescricao: Curso[];
+
   opcoesCursos: string[] = [];
-  dtInicial: Date;
-  dtFinal: Date;
   nomesCursos: Observable<string[]>;
-  formBuilder: any;
-  buscaForm: FormGroup
+
 
   constructor(private cursosService: CursosService,
     private dialog: MatDialog,
@@ -32,19 +29,17 @@ export class ListagemCursosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cursosService.PegarTodos().subscribe(res => {
-      res.forEach(curso => {
-        this.opcoesCursos.push(curso.descricaoCurso);
+      res.forEach(c => {
+        this.opcoesCursos.push(c.descricaoCurso);
       });
 
       this.cursos.data = res;
 
-      this.buscaForm = this.formBuilder.group({
-        dtInicial : [],
-        dtFinal : []
-      })
     });
 
     this.displayedColumns = this.ExibirColunas();
+
+    this.nomesCursos = this.autoCompleteInput.valueChanges.pipe(startWith(''), map(curso => this.FiltrarCursos(curso)));
 
 
   }
@@ -70,48 +65,24 @@ export class ListagemCursosComponent implements OnInit {
       }
     });
   }
-  CarregarCursosAtivos(): void {
-    this.cursosService.PegarCursando().subscribe((res) => {
-      this.cursosAtivos = res;
-      this.cursosFiltradosDescricao = res;
-    });
-  }
 
-  filtroData(){
-    if(this.dtInicial > this.dtFinal && this.dtFinal ){
-      this.snackBar.open('Data final não pode ser menor que a data inicial');
-    } else if(!this.dtInicial && !this.dtFinal){
-      this.CarregarCursosAtivos();
+  FiltrarCursos(nome: string): string[]{
+    if (nome.trim().length >= 4) {
+      this.cursosService.FiltrarCursos(nome).subscribe(res => {
+        this.cursos.data = res;
+      });
     }
-    else if (this.dtInicial && !this.dtFinal){
-      this.filtrarCursoDataInicial(this.dtInicial);
-    }else if (!this.dtInicial && this.dtFinal){
-      this.filtrarCursoDataFinal(this.dtFinal);
-    }else {
-      this.filtrarCursoDataInicialFinal(this.dtInicial, this.dtFinal)
+    else{
+      if (nome === '') {
+        this.cursosService.PegarTodos().subscribe(resultado => {
+          this.cursos.data = resultado;
+        })
+      }
     }
-  }
 
-  filtrarCursoDataInicial(dataInicial: any) : any
-  {
-    this.cursosFiltradosDescricao = this.cursosAtivos.filter(result =>{
-      return result.dtInicio >= dataInicial || result.dtTermino >= dataInicial
-    })
-  }
-
-  filtrarCursoDataFinal(dataFinal: any) : any
-  {
-
-    this.cursosFiltradosDescricao = this.cursosAtivos.filter(result =>{
-      return result.dtInicio <= dataFinal || result.dtTermino <= dataFinal
-    })
-  }
-
-  filtrarCursoDataInicialFinal(dataInicial:any, dataFinal: any) : any
-  {
-    this.cursosFiltradosDescricao = this.cursosAtivos.filter(result =>{
-      return (result.dtInicio >= dataInicial || result.dtTermino >= dataInicial) && (result.dtInicio <= dataFinal || result.dtTermino <= dataFinal)
-    })
+    return this.opcoesCursos.filter(c =>
+      c.toLowerCase().includes(nome.toLowerCase())
+    );
   }
 
 

@@ -15,15 +15,9 @@ export class ListagemLogsComponent implements OnInit {
   displayedColumns: string[];
 
   ngOnInit(): void {
-    this.ListarLog();
     this.displayedColumns = this.ExibirColunas();
   }
 
-  ListarLog(){
-    this.logsService.PegarLogs().subscribe(res => {
-      this.logs = res;
-    })
-  }
 
   ExibirColunas(): string[]{
     return ['curso', 'dtInclusao', 'dtAtualizacao', 'usuario']

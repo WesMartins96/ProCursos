@@ -50,6 +50,22 @@ namespace ProCursos.API.Repositorios
             }
         }
 
+        public IQueryable<Curso> FiltrarCursos(string nomeCurso)
+        {
+            try
+            {
+                var entity = _contexto.Cursos.Include(c => c.Categoria)
+                           .Where(c => c.DescricaoCurso.Contains(nomeCurso));
+
+                return entity;           
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+        }
+
         public async Task<bool> PegarCursoJaRegistrado(Curso curso)
         {
             var entity = await _contexto.Cursos.Where(

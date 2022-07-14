@@ -115,6 +115,12 @@ namespace ProCursos.API.Controllers
         }
 
 
+        [HttpGet("FiltrarCursos/{nomeCurso}")]
+        public async Task<ActionResult<IEnumerable<Curso>>> FiltrarCursos(string nomeCurso)
+        {
+            return await _cursoRepositorio.FiltrarCursos(nomeCurso).ToListAsync();
+        }
+
 
 
     }

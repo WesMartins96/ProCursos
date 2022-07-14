@@ -19,6 +19,8 @@ namespace ProCursos.API.Interfaces
 
        Task<bool> PegarCursoPeloPeriodo(Curso curso);
        Task<bool> PegarCursoJaRegistrado(Curso curso);
+
+       IQueryable<Curso> FiltrarCursos(string nomeCurso);
        
        
 

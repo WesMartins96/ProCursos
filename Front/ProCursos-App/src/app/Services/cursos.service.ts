@@ -19,12 +19,12 @@ export class CursosService {
   constructor(private http:HttpClient) { }
 
   PegarTodos(): Observable<Curso[]>{
-    return this.http.get<Curso[]>(this.url, httpOptions);
+    return this.http.get<Curso[]>(this.url);
   }
 
   PegarCursoPeloId(cursoId: number) : Observable<Curso>{
     const apiUrl = `${this.url}/${cursoId}`;
-    return this.http.get<Curso>(apiUrl, httpOptions);
+    return this.http.get<Curso>(apiUrl);
   }
 
   NovoCurso(curso: Curso): Observable<any>{
@@ -44,6 +44,11 @@ export class CursosService {
   PegarCursando() : Observable<Curso[]>{
     const apiUrl = `${this.url}/Cursando`;
     return this.http.get<Curso[]>(apiUrl, httpOptions);
+  }
+
+  FiltrarCursos(nomeCurso: string) : Observable<Curso[]>{
+    const apiUrl = `${this.url}/FiltrarCursos/${nomeCurso}`;
+    return this.http.get<Curso[]>(apiUrl);
   }
 
 }

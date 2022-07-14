@@ -85,6 +85,10 @@ export class ListagemCursosComponent implements OnInit {
     );
   }
 
+  FiltrarPelaData(): void{
+    
+  }
+
 
 
 }

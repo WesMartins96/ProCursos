@@ -41,13 +41,6 @@ namespace ProCursos.API.Controllers
             return curso;
         }
 
-        [HttpGet("Cursando/")]
-        public async Task<ActionResult<IEnumerable<Curso>>> GetCursosAtivos()
-        {
-            var entity = await _cursoRepositorio.PegarCursosAtivos();
-            return Ok(entity);
-        }
-
         // atualizar registros
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCurso(int id, Curso curso)
@@ -73,24 +66,19 @@ namespace ProCursos.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Curso>> PostCurso(Curso curso)
         {
-            if (ModelState.IsValid)
+
+            if (curso.DtInicio.Date <= DateTime.Now.Date || curso.DtInicio.Date >= curso.DtTermino.Date)
             {
-                await _cursoRepositorio.Criar(curso);
+               return BadRequest($"Não é possivel cadastrar cursos na data informada");
+            }
+            else
+
+            await _cursoRepositorio.Criar(curso);
 
                  return Ok(new {
                     mensagem = $"Curso {curso.DescricaoCurso} cadastrada com Sucesso!"
-                });
-            }
-
-            //criar log
-            var log = new Log()
-            {
-                CursoId = curso.CursoId,
-                DtInclusao = DateTime.Now,
-                Usuario = "Admin"              
-            };
-
-            return BadRequest(ModelState);
+                    });
+    
         }    
 
         [HttpDelete("{id}")]

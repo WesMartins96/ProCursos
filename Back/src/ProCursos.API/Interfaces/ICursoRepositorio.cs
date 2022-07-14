@@ -13,18 +13,9 @@ namespace ProCursos.API.Interfaces
        Task<Curso> Atualizar(Curso curso);
        Task<bool> Excluir(int cursoId); 
 
-
        Task<IEnumerable<Curso>> PegarTodos();
-       Task<IEnumerable<Curso>> PegarCursosAtivos();
-
-       Task<bool> PegarCursoPeloPeriodo(Curso curso);
-       Task<bool> PegarCursoJaRegistrado(Curso curso);
 
        IQueryable<Curso> FiltrarCursos(string nomeCurso);
-       
-       
-
-
 
 
     }

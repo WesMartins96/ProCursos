@@ -19,11 +19,22 @@
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option *ngFor="let curso of nomesCursos | async" [value]="curso"> {{ curso }}</mat-option>
         </mat-autocomplete>
+
       </mat-form-field>
-        <input style="margin: 20px;" type="date" >
-        <input type="date">
-        <button style="margin: 20px;" mat-fab color="primary">Filtrar</button>
-        <button  mat-fab color="warn">Limpar</button>
+
+      <mat-form-field class="data" appearance="fill">
+        <mat-label>Filtre pela data</mat-label>
+        <mat-date-range-input [rangePicker]="data">
+          <input matStartDate placeholder="Data inicial">
+          <input matEndDate placeholder="Data final">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="data"></mat-datepicker-toggle>
+        <mat-date-range-picker #data></mat-date-range-picker>
+      </mat-form-field>
+
+    <button style="margin: 20px;" mat-fab color="primary" (click)="FiltrarPelaData()">Filtrar</button>
+    <button  mat-fab color="warn">Limpar</button>
+
     </form>
   </div>
 

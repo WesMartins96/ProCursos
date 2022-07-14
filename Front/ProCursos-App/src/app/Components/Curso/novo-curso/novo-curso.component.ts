@@ -17,12 +17,15 @@ export class NovoCursoComponent implements OnInit {
 
   categorias: Categoria[];
 
+  erros: string[];
+
   constructor(private categoriasServices: CategoriasService,
     private cursosServices: CursosService,
     private router: Router,
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.erros = [];
     this.categoriasServices.PegarTodos().subscribe(res => {
       this.categorias = res;
     });
@@ -51,7 +54,10 @@ export class NovoCursoComponent implements OnInit {
         horizontalPosition: 'right',
         verticalPosition: 'top'
       });
-    })
+    },
+    (err) => {
+      console.log(err);
+    });
   }
 
   VoltarListagem(): void{

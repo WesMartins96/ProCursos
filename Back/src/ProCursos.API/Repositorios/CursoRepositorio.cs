@@ -28,7 +28,20 @@ namespace ProCursos.API.Repositorios
         {
             _contexto.Cursos.Add(curso);
             await _contexto.SaveChangesAsync();
+
+            if (curso.DtTermino.Date >= curso.DtInicio.Date)
+            {
+               return curso;
+            }
+            else{
+                if (curso.DtInicio.Date <= curso.DtTermino.Date)
+                {
+                    return curso;
+                }
+            }
+            
             return curso;
+
         }
 
         public async Task<bool> Excluir(int cursoId)
@@ -66,33 +79,7 @@ namespace ProCursos.API.Repositorios
             }
         }
 
-        public async Task<bool> PegarCursoJaRegistrado(Curso curso)
-        {
-            var entity = await _contexto.Cursos.Where(
-                e => e.DescricaoCurso.ToLower().Equals(curso.DescricaoCurso.ToLower()) 
-                && e.Status && e.CursoId != curso.CursoId).ToListAsync();
 
-            if (entity.Count() < 1) return false;
-            return true;
-           
-        }
-
-        public async Task<bool> PegarCursoPeloPeriodo(Curso curso)
-        {
-            var entity = await _contexto.Cursos.Where(
-                e => (e.DtTermino.Date >= curso.DtInicio.Date) 
-                && (e.DtInicio.Date <= curso.DtTermino.Date) && (e.Status && e.CursoId != curso.CursoId)).ToListAsync();
-
-
-                if (entity.Count() < 1) return false;
-                return true;
-        }
-
-        public async Task<IEnumerable<Curso>> PegarCursosAtivos()
-        {
-            return await _contexto.Cursos.Where(curso => curso.Status)
-                                                .Include(curso => curso.Categoria).ToListAsync();
-        }
 
         public async Task<Curso> PegarPeloId(int cursoId)
         {
